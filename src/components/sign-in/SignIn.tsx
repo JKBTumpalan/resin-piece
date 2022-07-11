@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   auth,
   signInWithGoogleRedirect,
@@ -8,6 +8,7 @@ import {
 } from "../../utils/firebase/firebase.utils";
 import { FormInput } from "../form-input/FormInput";
 import { getRedirectResult, GoogleAuthProvider } from "firebase/auth";
+import { UserContext } from "./../../context/UserContext";
 
 const defaultFormState = {
   email: "",
@@ -44,6 +45,7 @@ export const SignIn = () => {
   };
 
   const [formFields, setFormFields] = useState(defaultFormState);
+  const { setCurrentUser }: any = useContext(UserContext);
 
   const resetFormFields = () => {
     setFormFields(defaultFormState);
@@ -52,12 +54,13 @@ export const SignIn = () => {
     event.preventDefault();
 
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const { user }: any = await signInAuthUserWithEmailAndPassword(
         formFields.email,
         formFields.password
       );
 
-      console.log(response);
+      setCurrentUser(user);
+
       resetFormFields();
     } catch (err: any) {
       switch (err.code) {
