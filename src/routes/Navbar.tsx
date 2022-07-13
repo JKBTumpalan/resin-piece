@@ -3,10 +3,16 @@ import resinLogo from "../assets/logo.png";
 import "./navbar.styles.scss";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import { signOutUser } from "../utils/firebase/firebase.utils";
 
 export const Navbar = () => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, setCurrentUser }: any = useContext(UserContext);
 
+  const signOutHandler = async () => {
+    await signOutUser();
+
+    setCurrentUser(null);
+  };
   console.log(currentUser);
   return (
     <>
@@ -18,9 +24,16 @@ export const Navbar = () => {
           <Link className="nav-link" to="/shop">
             SHOP
           </Link>
-          <Link className="nav-link" to="/sign-in">
-            SIGN IN
-          </Link>
+          {currentUser ? (
+            <span className="nav-link" onClick={signOutHandler}>
+              {" "}
+              SIGNOUT{" "}
+            </span>
+          ) : (
+            <Link className="nav-link" to="/sign-in">
+              SIGN IN
+            </Link>
+          )}
         </div>
       </div>
       <Outlet />

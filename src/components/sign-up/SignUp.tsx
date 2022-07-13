@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   createAuthUserWithEmailAndPassword,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
 import { FormInput } from "../form-input/FormInput";
+import { UserContext } from "../../context/UserContext";
 
 const defaultFormState = {
   name: "",
@@ -15,6 +16,11 @@ const defaultFormState = {
 export const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormState);
 
+  const { setCurrentUser }: any = useContext(UserContext);
+
+  const resetFormFields = () => {
+    setFormFields(defaultFormState);
+  };
   const handleSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     console.log("Submitting...");
@@ -29,9 +35,11 @@ export const SignUp = () => {
         formFields.password
       );
 
+      setCurrentUser(user);
+
       await createUserDocumentFromAuth(user, { displayName: formFields.name });
 
-      console.log("Submitted");
+      resetFormFields();
     } catch (err: any) {
       if (err.code === "auth/email-already-in-use") {
         alert("Cannot create user, email already in use");
