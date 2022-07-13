@@ -8,7 +8,6 @@ import {
 } from "../../utils/firebase/firebase.utils";
 import { FormInput } from "../form-input/FormInput";
 import { getRedirectResult, GoogleAuthProvider } from "firebase/auth";
-import { UserContext } from "./../../context/UserContext";
 
 const defaultFormState = {
   email: "",
@@ -40,12 +39,10 @@ export const SignIn = () => {
   }, []);
 
   const logGoogleUser = async () => {
-    const { user } = await signInWithGoogleRedirect();
-    createUserDocumentFromAuth(user);
+    await signInWithGoogleRedirect();
   };
 
   const [formFields, setFormFields] = useState(defaultFormState);
-  const { setCurrentUser }: any = useContext(UserContext);
 
   const resetFormFields = () => {
     setFormFields(defaultFormState);
@@ -58,8 +55,6 @@ export const SignIn = () => {
         formFields.email,
         formFields.password
       );
-
-      setCurrentUser(user);
 
       resetFormFields();
     } catch (err: any) {
