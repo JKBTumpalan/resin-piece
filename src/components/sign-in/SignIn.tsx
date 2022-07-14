@@ -1,13 +1,12 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import {
   auth,
   signInWithGoogleRedirect,
-  createUserDocumentFromAuth,
-  provider,
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
 import { FormInput } from "../form-input/FormInput";
 import { getRedirectResult, GoogleAuthProvider } from "firebase/auth";
+import "./sign-in.styles.scss";
 
 const defaultFormState = {
   email: "",
@@ -35,6 +34,9 @@ export const SignIn = () => {
         // The email of the user's account used.
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
+        console.log(errorCode);
+        console.log(errorMessage);
+        console.log(credential);
       });
   }, []);
 

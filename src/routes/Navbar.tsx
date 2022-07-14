@@ -4,10 +4,13 @@ import "./navbar.styles.scss";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { signOutUser } from "../utils/firebase/firebase.utils";
+import CartIcon from "../components/cart-icon/CartIcon";
+import CartDropdown from "../components/cart-dropdown/CartDropdown";
+import { CartContext } from "../context/CartContext";
 
 export const Navbar = () => {
   const { currentUser }: any = useContext(UserContext);
-
+  const { isCartOpen }: any = useContext(CartContext);
   return (
     <>
       <div className="navigation">
@@ -28,7 +31,9 @@ export const Navbar = () => {
               SIGN IN
             </Link>
           )}
+          <CartIcon />
         </div>
+        {isCartOpen && <CartDropdown />}
       </div>
       <Outlet />
     </>
