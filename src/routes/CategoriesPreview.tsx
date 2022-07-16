@@ -2,7 +2,6 @@ import { useContext } from "react";
 
 import { CategoriesContext } from "../context/CategoriesContext";
 import { CategoryPreview } from "../components/category-preview/CategoryPreview";
-import "./category-preview.styles.scss";
 
 export const CategoriesPreview = () => {
   const { categories }: any = useContext(CategoriesContext);

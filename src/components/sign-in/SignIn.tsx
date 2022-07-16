@@ -6,7 +6,8 @@ import {
 } from "../../utils/firebase/firebase.utils";
 import { FormInput } from "../form-input/FormInput";
 import { getRedirectResult, GoogleAuthProvider } from "firebase/auth";
-import "./sign-in.styles.scss";
+import { SignInContainer, ButtonsContainer } from "./sign-in.styles.jsx";
+import { Button, BUTTON_TYPE_CLASSES } from "../button/Button";
 
 const defaultFormState = {
   email: "",
@@ -79,7 +80,7 @@ export const SignIn = () => {
   };
 
   return (
-    <div className="sign-in-container">
+    <SignInContainer>
       <h2> Already have an account?</h2>
       <span> Sign in with your username and password </span>
       <form onSubmit={handleSubmit}>
@@ -99,11 +100,16 @@ export const SignIn = () => {
           onChange={handleChange}
           value={formFields.password}
         />
-        <div className="buttons-container">
-          <button type="submit"> Sign In</button>
-          <button onClick={logGoogleUser}> Sign in With Google Redirect</button>
-        </div>
+        <ButtonsContainer>
+          <Button type="submit"> Sign In</Button>
+          <Button
+            buttonType={BUTTON_TYPE_CLASSES.google}
+            onClick={logGoogleUser}
+          >
+            Sign in With Google
+          </Button>
+        </ButtonsContainer>
       </form>
-    </div>
+    </SignInContainer>
   );
 };
