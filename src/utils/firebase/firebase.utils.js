@@ -11,7 +11,7 @@ import {
   signOut,
   onAuthStateChanged,
 } from "firebase/auth";
-
+import { v4 as uuidv4 } from "uuid";
 import {
   getFirestore,
   doc,
@@ -111,8 +111,12 @@ export const addCollectionAndDocuments = async (
   const batch = writeBatch(db);
 
   objectsToAdd.forEach((object) => {
+    // For each object colleciton, get items and add ID, store to var
+    const objectItemsWithID = object.items.map((itemDetails) => {
+      return { ...itemDetails, id: uuidv4() };
+    });
     const docRef = doc(collectionRef, object.title.toLowerCase());
-    batch.set(docRef, object);
+    batch.set(docRef, { ...object, items: objectItemsWithID });
   });
 
   await batch.commit();
@@ -120,7 +124,7 @@ export const addCollectionAndDocuments = async (
 };
 
 export const getCategoriesAndDocuments = async () => {
-  const collectionRef = collection(db, "categories");
+  const collectionRef = collection(db, "collections");
   const q = query(collectionRef);
 
   const querySnapshot = await getDocs(q);

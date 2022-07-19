@@ -19,7 +19,7 @@ const ProductCard = ({ product }: any) => {
 
   return (
     <ProductCartContainer>
-      <img src={imageUrl} alt={`${name}`} />
+      <img src={require(`./../../assets/${imageUrl}`)} alt={`${name}`} />
       <Footer>
         <Name>{name}</Name>
         <Price>{price}</Price>
