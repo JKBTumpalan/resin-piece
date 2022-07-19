@@ -22,7 +22,7 @@ const ProductCard = ({ product }: any) => {
       <img src={require(`./../../assets/${imageUrl}`)} alt={`${name}`} />
       <Footer>
         <Name>{name}</Name>
-        <Price>{price}</Price>
+        <Price>₱{price}</Price>
       </Footer>
       <Button
         buttonType={BUTTON_TYPE_CLASSES.inverted}

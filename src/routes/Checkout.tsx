@@ -34,7 +34,7 @@ const Checkout = () => {
       {cartItems.map((cartItem: any) => (
         <CheckoutItem key={cartItem.id} cartItem={cartItem} />
       ))}
-      <Total>Total: ${cartTotal}</Total>
+      <Total>Total: ₱{cartTotal}</Total>
     </CheckoutContainer>
   );
 };
