@@ -1,4 +1,4 @@
-import { createContext, useState, useReducer } from "react";
+import { createContext, useReducer } from "react";
 
 //Find product in the existing cart, if found, add quantity. Else, add as new product.
 const addCartItem = (cartItems, productToAdd) => {
@@ -48,20 +48,6 @@ export const CartContext = createContext({
   cartTotal: 0,
 });
 
-const CartReducer = (state, action) => {
-  const { type, payload } = action;
-
-  switch (type) {
-    case "SET_CART_ITEMS":
-      return {
-        ...state,
-        ...payload,
-      };
-    default:
-      throw new Error(`Unhandled type of ${type} in Cart Reducer`);
-  }
-};
-
 const CART_ACTION_TYPES = {
   SET_IS_CART_OPEN: "SET_IS_CART_OPEN",
   SET_CART_ITEMS: "SET_CART_ITEMS",
@@ -69,6 +55,24 @@ const CART_ACTION_TYPES = {
   SET_CART_TOTAL: "SET_CART_TOTAL",
 };
 
+const CartReducer = (state, action) => {
+  const { type, payload } = action;
+
+  switch (type) {
+    case CART_ACTION_TYPES.SET_CART_ITEMS:
+      return {
+        ...state,
+        ...payload,
+      };
+    case CART_ACTION_TYPES.SET_IS_CART_OPEN:
+      return {
+        ...state,
+        isCartOpen: !state.isCartOpen,
+      };
+    default:
+      throw new Error(`Unhandled type of ${type} in Cart Reducer`);
+  }
+};
 const INITIAL_STATE = {
   isCartOpen: false,
   cartItems: [],
@@ -77,11 +81,8 @@ const INITIAL_STATE = {
 };
 
 export const CartProvider = ({ children }) => {
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const [{ cartCount, cartTotal, cartItems }, dispatch] = useReducer(
-    CartReducer,
-    INITIAL_STATE
-  );
+  const [{ cartCount, cartTotal, cartItems, isCartOpen }, dispatch] =
+    useReducer(CartReducer, INITIAL_STATE);
 
   const updateCartItemsReducer = (cartItems) => {
     const newCartCount = cartItems.reduce(
@@ -101,6 +102,9 @@ export const CartProvider = ({ children }) => {
 
     dispatch({ type: CART_ACTION_TYPES.SET_CART_ITEMS, payload: payload });
   };
+
+  const setIsCartOpen = () =>
+    dispatch({ type: CART_ACTION_TYPES.SET_IS_CART_OPEN, payload: null });
 
   const addItemToCart = (productToAdd) => {
     const newCartItems = addCartItem(cartItems, productToAdd);
