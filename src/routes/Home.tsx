@@ -11,26 +11,31 @@ export const Home = () => {
       id: 1,
       title: "Letters",
       imageUrl: letters,
+      route: "shop/letters",
     },
     {
       id: 2,
       title: "Bookmarks",
       imageUrl: bookmark,
+      route: "shop/bookmarks",
     },
     {
       id: 3,
       title: "Coasters",
       imageUrl: coasters,
+      route: "shop/coasters",
     },
     {
       id: 4,
       title: "Combs",
       imageUrl: combs,
+      route: "shop/combs",
     },
     {
       id: 5,
       title: "Customized",
       imageUrl: bundle,
+      route: "shop/bundle",
     },
   ];
 

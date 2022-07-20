@@ -7,6 +7,7 @@ import { SignInPage } from "./routes/SignInPage";
 import { useEffect } from "react";
 import {
   createUserDocumentFromAuth,
+  getCategoriesAndDocuments,
   onAuthStateChangedListener,
 } from "./utils/firebase/firebase.utils";
 import { useDispatch } from "react-redux";
