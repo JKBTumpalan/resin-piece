@@ -4,8 +4,27 @@ import { Home } from "./routes/Home";
 import { Navbar } from "./routes/Navbar";
 import { Shop } from "./routes/Shop";
 import { SignInPage } from "./routes/SignInPage";
+import { useEffect } from "react";
+import {
+  createUserDocumentFromAuth,
+  onAuthStateChangedListener,
+} from "./utils/firebase/firebase.utils";
+import { useDispatch } from "react-redux";
+import { setCurrentUser } from "./store/user/user-action";
 
 function App() {
+  const dispatch: any = useDispatch();
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChangedListener((user: any) => {
+      if (user) {
+        createUserDocumentFromAuth(user);
+      }
+      dispatch(setCurrentUser(user));
+    });
+
+    return unsubscribe;
+  }, [dispatch]);
   return (
     <Routes>
       <Route path="/" element={<Navbar />}>

@@ -1,4 +1,5 @@
 import { Outlet, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import resinLogo from "../assets/logo.png";
 import {
   LogoContainer,
@@ -7,14 +8,14 @@ import {
   NavLinksContainer,
 } from "./navbar.styles.jsx";
 import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
 import { signOutUser } from "../utils/firebase/firebase.utils";
 import CartIcon from "../components/cart-icon/CartIcon";
 import CartDropdown from "../components/cart-dropdown/CartDropdown";
 import { CartContext } from "../context/CartContext";
+import { selectCurrentUser } from "../store/user/user-selector";
 
 export const Navbar = () => {
-  const { currentUser }: any = useContext(UserContext);
+  const currentUser = useSelector(selectCurrentUser);
   const { isCartOpen }: any = useContext(CartContext);
   return (
     <>
