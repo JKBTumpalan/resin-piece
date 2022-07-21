@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  categoriesState: {},
+  categoriesState: [],
 };
 
 export const categoriesReducer = (state = INITIAL_STATE, action) => {
