@@ -27,8 +27,6 @@ export const cartReducer = (state = INITIAL_STATE, action) => {
         isCartOpen: payload,
       };
     default:
-      return {
-        ...state,
-      };
+      return state;
   }
 };
