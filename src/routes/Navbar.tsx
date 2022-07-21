@@ -7,16 +7,15 @@ import {
   NavLink,
   NavLinksContainer,
 } from "./navbar.styles.jsx";
-import { useContext } from "react";
 import { signOutUser } from "../utils/firebase/firebase.utils";
 import CartIcon from "../components/cart-icon/CartIcon";
 import CartDropdown from "../components/cart-dropdown/CartDropdown";
-import { CartContext } from "../context/CartContext";
 import { selectCurrentUser } from "../store/user/user-selector";
+import { getIsCartOpen } from "../store/cart/cart-selector";
 
 export const Navbar = () => {
   const currentUser = useSelector(selectCurrentUser);
-  const { isCartOpen }: any = useContext(CartContext);
+  const isCartOpen = useSelector(getIsCartOpen);
   return (
     <>
       <NavigationContainer>
