@@ -59,6 +59,7 @@ export const SignIn = () => {
         formFields.password
       );
 
+      console.log(user);
       resetFormFields();
     } catch (err: any) {
       switch (err.code) {

@@ -1,3 +1,5 @@
+//UNUSED CONTEXT
+
 import { createContext, useReducer } from "react";
 
 //Find product in the existing cart, if found, add quantity. Else, add as new product.

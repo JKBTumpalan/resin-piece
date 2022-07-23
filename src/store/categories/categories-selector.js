@@ -18,3 +18,8 @@ export const getCategories = createSelector(
       return acc;
     }, {})
 );
+
+export const getCategoriesLoadingState = createSelector(
+  [selectCategories],
+  (categoriesSlice) => categoriesSlice.isLoading
+);

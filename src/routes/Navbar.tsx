@@ -1,4 +1,4 @@
-import { Outlet, Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import resinLogo from "../assets/logo.png";
 import {
@@ -20,7 +20,13 @@ export const Navbar = () => {
     <>
       <NavigationContainer>
         <LogoContainer className="logo-container" to="/">
-          <img src={resinLogo} className="logo" width="100%" height="100%" />
+          <img
+            src={resinLogo}
+            alt="rip-logo"
+            className="logo"
+            width="100%"
+            height="100%"
+          />
         </LogoContainer>
         <NavLinksContainer className="nav-links-container">
           <NavLink className="nav-link" to="/shop">

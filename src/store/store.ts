@@ -17,8 +17,7 @@ const composedEnhancers = compose(applyMiddleware(...middlewares));
 const persistConfig = {
   key: "primary",
   storage: storage,
-  whitelist: ["cart", "categories"],
-  blacklist: ["user"],
+  whitelist: ["cart"],
 };
 
 const rootReducer = combineReducers({
@@ -40,3 +39,7 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<typeof store.getState>;
+// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
+export type AppDispatch = typeof store.dispatch;

@@ -1,5 +1,6 @@
+//UNUSED CONTEXT
+
 import { createContext, useEffect, useReducer } from "react";
-import { act } from "react-dom/test-utils";
 import {
   createUserDocumentFromAuth,
   onAuthStateChangedListener,
