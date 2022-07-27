@@ -10,8 +10,12 @@ import { cartReducer } from "./cart/cart-reducer";
 import { categoriesReducer } from "./categories/categories-reducer";
 import { persistReducer, persistStore } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import createSagaMiddleware from "@redux-saga/core";
+import { rootSaga } from "./root-saga";
 
-const middlewares = [logger];
+const sagaMiddleware = createSagaMiddleware();
+
+const middlewares = [logger, sagaMiddleware];
 
 const composedEnhancers = compose(applyMiddleware(...middlewares));
 const persistConfig = {
@@ -38,6 +42,7 @@ export const store = configureStore({
   enhancers: [composedEnhancers],
 });
 
+sagaMiddleware.run(rootSaga);
 export const persistor = persistStore(store);
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;
